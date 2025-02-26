@@ -16,7 +16,6 @@ import java.util.List;
 
 public class DishDAO implements DAO<Dish> {
     private final DataSource dataSource = new DataSource();
-    private final DishIngredientDAO dishIngredientDAO = new DishIngredientDAO(); // Add this
 
     @Override
     public List<Dish> getAll(int page, int size) {
@@ -68,19 +67,24 @@ public class DishDAO implements DAO<Dish> {
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, id);
 
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    int id_dish = rs.getInt("id_dish");
-                    String name = rs.getString("name");
-                    double price = rs.getDouble("unit_price");
-
-                    dish = new Dish(id_dish, name, price);
-                }
-            }
+            dish = getDish(dish, ps);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
+        return dish;
+    }
+
+    private Dish getDish(Dish dish, PreparedStatement ps) throws SQLException {
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                int id_dish = rs.getInt("id_dish");
+                String name = rs.getString("name");
+                double price = rs.getDouble("unit_price");
+
+                dish = new Dish(id_dish, name, price);
+            }
+        }
         return dish;
     }
 
@@ -93,15 +97,7 @@ public class DishDAO implements DAO<Dish> {
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, "%" + dishName + "%");
 
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    int idDish = rs.getInt("id_dish");
-                    String name = rs.getString("name");
-                    double price = rs.getDouble("unit_price");
-
-                    dish = new Dish(idDish, name, price);
-                }
-            }
+            dish = getDish(dish, ps);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -111,12 +107,12 @@ public class DishDAO implements DAO<Dish> {
 
     @Override
     public List<Dish> findByCriteria(List<Criteria> criteria) {
-        return List.of();
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public List<Dish> findAndOrderAndPaginate(List<Criteria> criteria, String filterBy, Order order, int page, int size) {
-        return List.of();
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -126,7 +122,7 @@ public class DishDAO implements DAO<Dish> {
 
     @Override
     public double getPriceAtDate(int id, LocalDateTime dateTime) {
-        return 0;
+        throw new UnsupportedOperationException("Not supported yet");
     }
 
     @Override

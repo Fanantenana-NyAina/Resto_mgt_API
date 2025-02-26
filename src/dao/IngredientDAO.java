@@ -122,7 +122,7 @@ public class IngredientDAO implements DAO<Ingredient> {
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql.toString())) {
-            //System.out.println(sql);
+
             try (ResultSet rs = ps.executeQuery()) {
                 List<Ingredient> ingredients = new ArrayList<>();
                 while (rs.next()) {
@@ -182,7 +182,6 @@ public class IngredientDAO implements DAO<Ingredient> {
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql.toString())) {
-            //System.out.println(sql);
 
             try (ResultSet rs = ps.executeQuery()) {
                 List<Ingredient> ingredients = new ArrayList<>();
