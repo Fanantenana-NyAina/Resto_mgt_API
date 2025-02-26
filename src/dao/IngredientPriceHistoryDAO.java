@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class IngredientPriceHistoryDAO implements DAO<IngredientPriceHistory> {
-    private DataSource dataSource = new DataSource();
+    private final DataSource dataSource = new DataSource();
 
     @Override
     public List<IngredientPriceHistory> getAll(int page, int size) {
