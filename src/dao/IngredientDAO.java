@@ -120,6 +120,10 @@ public class IngredientDAO implements DAO<Ingredient> {
             }
         }
 
+        return getIngredients(sql);
+    }
+
+    private List<Ingredient> getIngredients(StringBuilder sql) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql.toString())) {
 
@@ -180,26 +184,7 @@ public class IngredientDAO implements DAO<Ingredient> {
         }
         sql.append(" limit ").append(size).append(" offset ").append((page - 1) * size);
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql.toString())) {
-
-            try (ResultSet rs = ps.executeQuery()) {
-                List<Ingredient> ingredients = new ArrayList<>();
-                while (rs.next()) {
-                    int idIngredient = rs.getInt("id_ingredient");
-                    String name = rs.getString("name");
-                    double price = rs.getDouble("price");
-                    Unit unit = Unit.valueOf(rs.getString("unit"));
-                    LocalDateTime updateDatetime = rs.getTimestamp("history_date").toLocalDateTime();
-
-                    ingredients.add(new Ingredient(idIngredient, name, price, unit, updateDatetime));
-                }
-
-                return ingredients;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return getIngredients(sql);
     }
 
 
