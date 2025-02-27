@@ -3,6 +3,7 @@ package dao;
 import db.DataSource;
 import entity.Criteria;
 import entity.DishIngredient;
+import entity.FilterBy;
 import entity.Order;
 
 import java.time.LocalDateTime;
@@ -32,7 +33,7 @@ public class DishIngredientDAO implements DAO<DishIngredient> {
     }
 
     @Override
-    public List<DishIngredient> findAndOrderAndPaginate(List<Criteria> criteria, String filterBy, Order order, int page, int size) {
+    public List<DishIngredient> findAndOrderAndPaginate(List<Criteria> criteria, FilterBy filterBy, Order order, int page, int size) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

@@ -1,10 +1,7 @@
 package test;
 
 import dao.IngredientDAO;
-import entity.Criteria;
-import entity.Ingredient;
-import entity.Order;
-import entity.Unit;
+import entity.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -72,7 +69,7 @@ public class TestIngredient {
                 LocalDateTime.parse("2025-01-01T00:00:00")
         )));
 
-        String filterBy = "price";
+        FilterBy filterBy = FilterBy.PRICE;
         Order order = Order.ASC;
         int page = 1;
         int size = 10;

@@ -1,6 +1,7 @@
 package dao;
 
 import entity.Criteria;
+import entity.FilterBy;
 import entity.Order;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ public interface DAO<E> {
 
     List<E> findByCriteria(List<Criteria> criteria);
 
-    List<E> findAndOrderAndPaginate(List<Criteria> criteria, String filterBy, Order order, int page, int size);
+    List<E> findAndOrderAndPaginate(List<Criteria> criteria, FilterBy filterBy, Order order, int page, int size);
 
     double getPrice(int id);
 

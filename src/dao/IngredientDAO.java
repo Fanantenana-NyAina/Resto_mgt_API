@@ -148,7 +148,7 @@ public class IngredientDAO implements DAO<Ingredient> {
     }
 
     @Override
-    public List<Ingredient> findAndOrderAndPaginate(List<Criteria> ingredientCriterias, String filterBy, Order order, int page, int size) {
+    public List<Ingredient> findAndOrderAndPaginate(List<Criteria> ingredientCriterias, FilterBy filterBy, Order order, int page, int size) {
         //StringBuilder sql = new StringBuilder("select i.id_ingredient, i.name, i.unit_price, i.unit, i.update_datetime from ingredient i where 1=1");
         StringBuilder sql = new StringBuilder(
                 "select i.id_ingredient, i.name, i.unit, iph.price, iph.history_date from ingredient i " +
@@ -177,10 +177,11 @@ public class IngredientDAO implements DAO<Ingredient> {
             }
         }
 
-        if(filterBy.equalsIgnoreCase("name")|| filterBy.equalsIgnoreCase("unit")) {
-            sql.append(" order by i.").append(filterBy.toLowerCase()).append(" ").append(order.toString().toLowerCase());
-        } else if (filterBy.equalsIgnoreCase("price")||filterBy.equalsIgnoreCase("history_date")) {
-            sql.append(" order by iph.").append(filterBy.toLowerCase()).append(" ").append(order.toString().toLowerCase());
+
+        if(filterBy.toString().equalsIgnoreCase("name")|| filterBy.toString().equalsIgnoreCase("unit")) {
+            sql.append(" order by i.").append(filterBy.toString().toLowerCase()).append(" ").append(order.toString().toLowerCase());
+        } else if (filterBy.toString().equalsIgnoreCase("price")||filterBy.toString().equalsIgnoreCase("history_date")) {
+            sql.append(" order by iph.").append(filterBy.toString().toLowerCase()).append(" ").append(order.toString().toLowerCase());
         }
         sql.append(" limit ").append(size).append(" offset ").append((page - 1) * size);
 

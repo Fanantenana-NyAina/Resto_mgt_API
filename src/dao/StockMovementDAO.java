@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Filter;
 
 public class StockMovementDAO implements DAO<StockMovement>{
     private final DataSource dataSource = new DataSource();
@@ -61,7 +62,7 @@ public class StockMovementDAO implements DAO<StockMovement>{
     }
 
     @Override
-    public List<StockMovement> findAndOrderAndPaginate(List<Criteria> criteria, String filterBy, Order order, int page, int size) {
+    public List<StockMovement> findAndOrderAndPaginate(List<Criteria> criteria, FilterBy filterBy, Order order, int page, int size) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

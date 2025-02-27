@@ -1,10 +1,7 @@
 package dao;
 
 import db.DataSource;
-import entity.Criteria;
-import entity.Dish;
-import entity.DishIngredient;
-import entity.Order;
+import entity.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -111,7 +108,7 @@ public class DishDAO implements DAO<Dish> {
     }
 
     @Override
-    public List<Dish> findAndOrderAndPaginate(List<Criteria> criteria, String filterBy, Order order, int page, int size) {
+    public List<Dish> findAndOrderAndPaginate(List<Criteria> criteria, FilterBy filterBy, Order order, int page, int size) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
