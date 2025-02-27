@@ -53,6 +53,20 @@ public class Dish {
         return ingredientPriceHistoryService.getPriceAtDate(ingredient.getIdIngredient(), dateChoice);
     }
 
+    public double getGrossMarginDefault() {
+        double dishUnitPrice = unitPrice;
+        double ingredientCost = totalIngredientsCost(LocalDateTime.now());
+
+        return dishUnitPrice - ingredientCost;
+    }
+
+    public double getGrossMarginAtDate(LocalDateTime dateChoice) {
+        double dishUnitPrice = unitPrice;
+        double ingredientCost = totalIngredientsCost(dateChoice);
+
+        return dishUnitPrice - ingredientCost;
+    }
+
     public int getIdDish() {
         return idDish;
     }

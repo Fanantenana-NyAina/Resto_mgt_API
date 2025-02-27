@@ -63,11 +63,34 @@ public class TestDish {
         LocalDateTime dateTest = LocalDateTime.now();
 
         double expectedCost = (20 * 100) + (10000 * 0.15) + (1000 * 1) + (1000 * 1);
-        //System.out.println("expected: " + expectedCost);
         double actualCost = hotDog.totalIngredientsCost(dateTest);
 
-        //System.out.println("actual: " + actualCost);
         assertEquals(expectedCost, actualCost);
     }
 
+    @Test
+    public void getGrossMarginDefaultTest() {
+        Dish hotDog = hotDogFull();
+
+        double ingredientCost = (20 * 100) + (10000 * 0.15) + (1000 * 1) + (1000 * 1);
+        double expectedGrossMargin = hotDog.getUnitPrice() - ingredientCost;
+        double actualGrossMargin = hotDog.getGrossMarginDefault();
+
+        System.out.println(actualGrossMargin);
+        System.out.println(expectedGrossMargin);
+
+        assertEquals(expectedGrossMargin, actualGrossMargin);
+    }
+
+    @Test
+    public void getGrossMarginAtDateTest() {
+        Dish hotDog = hotDogFull();
+
+        LocalDateTime dateChoice = LocalDateTime.parse("2023-12-01T00:00:00");
+        double ingredientCost = hotDog.totalIngredientsCost(dateChoice);
+        double expectedGrossMargin = hotDog.getUnitPrice() - ingredientCost;
+        double actualGrossMargin = hotDog.getGrossMarginAtDate(dateChoice);
+
+        assertEquals(expectedGrossMargin, actualGrossMargin);
+    }
 }
