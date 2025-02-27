@@ -23,6 +23,17 @@ create table if not exists ingredient
     update_datetime timestamp not null default current_timestamp
 );
 
+create table if not exists dish_ingredient
+(
+    id_dish int,
+    id_ingredient int,
+    required_quantity numeric,
+    unit unit not null,
+    primary key (id_dish, id_ingredient),
+    constraint fk_id_dish foreign key (id_dish) references dish(id_dish),
+    constraint fk_id_ingredient foreign key (id_ingredient) references ingredient(id_ingredient)
+);
+
 -- changing ingredient table:
 alter table ingredient drop column unit_price;
 alter table ingredient drop column update_datetime;
@@ -35,15 +46,27 @@ create table if not exists ingredientPriceHistory
     price numeric,
     history_date timestamp not null default current_timestamp,
     constraint fk_ingredient foreign key (id_ingredient) references ingredient(id_ingredient)
-)
+);
 
-create table if not exists dish_ingredient
+-- stock management part:
+    ---- creating movement type:
+do
+$$
+    begin
+        if not exists(select from pg_type where typname = 'mvt') then
+        create type "mvt" as enum ('IN', 'OUT');
+    end if;
+end
+$$;
+
+    ---- creating StockMovementTable:
+create table if not exists stock_movement
 (
-    id_dish int,
-    id_ingredient int,
-    required_quantity numeric,
-    unit unit not null,
-    primary key (id_dish, id_ingredient),
-    constraint fk_id_dish foreign key (id_dish) references dish(id_dish),
-    constraint fk_id_ingredient foreign key (id_ingredient) references ingredient(id_ingredient)
+    id_movement int primary key,
+    id_ingredient int not null,
+    movement mvt,
+    quantity numeric,
+    unit unit,
+    movement_datetime timestamp not null default current_timestamp,
+    constraint fk_ingredient foreign key (id_ingredient) references ingredient(id_ingredient)
 );
