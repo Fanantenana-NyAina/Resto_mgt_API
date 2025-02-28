@@ -185,6 +185,7 @@ public class IngredientDAO implements DAO<Ingredient> {
         }
         sql.append(" limit ").append(size).append(" offset ").append((page - 1) * size);
 
+        System.out.println(sql);
         return getIngredients(sql);
     }
 

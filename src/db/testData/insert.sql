@@ -68,3 +68,27 @@ values
 insert into stock_movement (id_movement, id_ingredient, movement, quantity, unit, movement_datetime)
 values
     (8, 4, 'IN', 50, 'U', '2025-02-05 16:00:00');
+
+
+------------- new data ----------
+    ----- ingredient :
+insert into ingredient (id_ingredient, name, unit)
+values
+    (5, 'sel', 'G');
+insert into ingredient (id_ingredient, name, unit)
+values
+    (6, 'rice', 'G');
+
+    ----- price:
+insert into ingredient_price_history (id_price_history, id_ingredient, price, history_date)
+values
+    (5, 5, 2.5, current_timestamp),
+    (6, 6, 3.5, current_timestamp);
+
+    ----- stock_movement:
+insert into stock_movement (id_movement, id_ingredient, movement, quantity, unit, movement_datetime)
+values
+    (9, 5, 'IN', 10, 'G', current_timestamp),
+    (10, 6, 'IN', 10, 'G', current_timestamp),
+    (11, 5, 'OUT', 5, 'G', current_timestamp),
+    (12, 6, 'OUT', 5, 'G', current_timestamp);

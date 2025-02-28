@@ -64,7 +64,7 @@ public class TestIngredient {
         criteria.add(new Criteria("name", "oeuf"));
         criteria.add(new Criteria("unit_price", List.of(500.0, 2000.0)));
         criteria.add(new Criteria("unit", "U"));
-        criteria.add(new Criteria("update_datetime", List.of(
+        criteria.add(new Criteria("history_date", List.of(
                 LocalDateTime.parse("2025-01-01T00:00:00"),
                 LocalDateTime.parse("2025-01-01T00:00:00")
         )));
