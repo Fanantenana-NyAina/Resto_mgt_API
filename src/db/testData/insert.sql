@@ -50,7 +50,7 @@ VALUES
 
 
 ----- STOCK MANAGEMENT PART  --------
-    --- insert stock:
+    --- insert stock: (IN)
 insert into stock_movement (id_movement, id_ingredient, movement, quantity, unit, movement_datetime)
 values
     (1, 3, 'IN', 100, 'U', '2025-02-01 08:00:00'),
@@ -58,3 +58,13 @@ values
     (3, 1, 'IN', 10000, 'G', '2025-02-01 08:00:00'),
     (4, 2, 'IN', 20, 'L', '2025-02-01 08:00:00');
 
+    --- insert stock: (OUT)
+insert into stock_movement (id_movement, id_ingredient, movement, quantity, unit, movement_datetime)
+values
+    (5, 3, 'OUT', 10, 'U', '2025-02-02 10:00:00'),
+    (6, 3, 'OUT', 10, 'U', '2025-02-03 15:00:00'),
+    (7, 4, 'OUT', 20, 'U', '2025-02-05 16:00:00');
+
+insert into stock_movement (id_movement, id_ingredient, movement, quantity, unit, movement_datetime)
+values
+    (8, 4, 'IN', 50, 'U', '2025-02-05 16:00:00');

@@ -35,17 +35,26 @@ public class TestStockMvt {
 
     @Test
     public void countStockMovement() {
-        Ingredient ingredient = new Ingredient(4, "pain", Unit.U);
+        LocalDateTime now = null;
 
-        LocalDateTime now = null; // localDateTime at getStockMvtStateAtDate()
-        LocalDateTime atDate = LocalDateTime.parse("2025-02-04T08:00:00");
+        Ingredient Egg = new Ingredient(3, "oeuf", Unit.U);
+        Ingredient Bred = new Ingredient(4, "pain", Unit.U);
+        Ingredient saucage = new Ingredient(1, "saucisse", Unit.G);
+        Ingredient Oil = new Ingredient(2, "Oil", Unit.L);
 
+        double expectedEggsQuantity = 80;
+        double expectedBredsQuantity = 80;
+        double expectedSaucagesQuantity = 10000;
+        double expectedOilsQuantity = 20;
 
-        double expectedQuantity = 50; //pain
-        double actualQuantity1 = ingredient.getStockMvtStateAtDate(now);
-        double actualQuantity2 = ingredient.getStockMvtStateAtDate(atDate);
+        double actualEggQuantityNow = Egg.getStockMvtStateAtDate(now);
+        double actualBredQuantityNow = Bred.getStockMvtStateAtDate(now);
+        double actualSaucageQuantityNow = saucage.getStockMvtStateAtDate(now);
+        double actualOilQuantityNow = Oil.getStockMvtStateAtDate(now);
 
-        assertEquals(expectedQuantity, actualQuantity1, "now quantity state");
-        assertEquals(expectedQuantity, actualQuantity2, "at date quantity state");
+        assertEquals(expectedEggsQuantity, actualEggQuantityNow);
+        assertEquals(expectedBredsQuantity, actualBredQuantityNow);
+        assertEquals(expectedSaucagesQuantity, actualSaucageQuantityNow);
+        assertEquals(expectedOilsQuantity, actualOilQuantityNow);
     }
 }
