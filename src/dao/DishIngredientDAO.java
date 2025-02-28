@@ -51,4 +51,9 @@ public class DishIngredientDAO implements DAO<DishIngredient> {
     public List<DishIngredient> saveAll(List<DishIngredient> entity) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public List<DishIngredient> getAllByIdBeforeDate(int id, LocalDateTime dateTime) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

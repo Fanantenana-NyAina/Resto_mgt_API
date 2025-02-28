@@ -143,4 +143,9 @@ public class DishDAO implements DAO<Dish> {
         }
         return newDish;
     }
+
+    @Override
+    public List<Dish> getAllByIdBeforeDate(int id, LocalDateTime dateTime) {
+        return List.of();
+    }
 }

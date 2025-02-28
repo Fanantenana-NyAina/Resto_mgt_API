@@ -74,4 +74,9 @@ public class IngredientPriceHistoryDAO implements DAO<IngredientPriceHistory> {
     public List<IngredientPriceHistory> saveAll(List<IngredientPriceHistory> entity) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public List<IngredientPriceHistory> getAllByIdBeforeDate(int id, LocalDateTime dateTime) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

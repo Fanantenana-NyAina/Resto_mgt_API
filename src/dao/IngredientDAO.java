@@ -220,4 +220,9 @@ public class IngredientDAO implements DAO<Ingredient> {
     public List<Ingredient> saveAll(List<Ingredient> entity) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public List<Ingredient> getAllByIdBeforeDate(int id, LocalDateTime dateTime) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

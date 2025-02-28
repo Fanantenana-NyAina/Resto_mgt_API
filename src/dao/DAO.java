@@ -23,4 +23,6 @@ public interface DAO<E> {
     double getPriceAtDate(int id, LocalDateTime dateTime);
 
     List<E> saveAll (List<E> entity);
+
+    List<E> getAllByIdBeforeDate (int id, LocalDateTime dateTime);
 }
