@@ -73,17 +73,16 @@ public class TestIngredient {
         Order order = Order.ASC;
         int page = 1;
         int size = 10;
+        LogicalConnector andConnector = LogicalConnector.and;
+        LogicalConnector orConnector = LogicalConnector.or;
 
-        List<Ingredient> expected = List.of(
-                new Ingredient(1, "Saucisse", 20.0, Unit.G, LocalDateTime.parse("2025-01-01T00:00:00")),
-                new Ingredient(2, "Huile", 10000.0, Unit.L, LocalDateTime.parse("2025-01-01T00:00:00")),
-                new Ingredient(3, "Oeuf", 1000.0, Unit.U, LocalDateTime.parse("2025-01-01T00:00:00")),
-                new Ingredient(4, "Pain", 1000.0, Unit.U, LocalDateTime.parse("2025-01-01T00:00:00"))
+        List<Ingredient> expectedWithAnd = List.of(
+                new Ingredient(3, "Oeuf", 1000.0, Unit.U, LocalDateTime.parse("2025-01-01T00:00:00"))
         );
 
-        List<Ingredient> actual = subject.findAndOrderAndPaginate(criteria, filterBy, order, page, size);
+        List<Ingredient> actual = subject.findAndOrderAndPaginate(criteria, andConnector ,filterBy, order, page, size);
 
-        assertEquals(expected.size(), actual.size());
+        assertEquals(expectedWithAnd.size(), actual.size());
         assertTrue(actual.stream()
                 .allMatch(ingredient -> ingredient.getIngredientName().toLowerCase().contains("oeuf")
                         || (ingredient.getUnitPrice() >= 500.0 && ingredient.getUnitPrice() <= 2000.0)

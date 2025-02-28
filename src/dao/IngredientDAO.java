@@ -148,40 +148,44 @@ public class IngredientDAO implements DAO<Ingredient> {
     }
 
     @Override
-    public List<Ingredient> findAndOrderAndPaginate(List<Criteria> ingredientCriterias, FilterBy filterBy, Order order, int page, int size) {
+    public List<Ingredient> findAndOrderAndPaginate(List<Criteria> ingredientCriterias, LogicalConnector logicalConnector, FilterBy filterBy, Order order, int page, int size) {
         //StringBuilder sql = new StringBuilder("select i.id_ingredient, i.name, i.unit_price, i.unit, i.update_datetime from ingredient i where 1=1");
         StringBuilder sql = new StringBuilder(
                 "select i.id_ingredient, i.name, i.unit, iph.price, iph.history_date from ingredient i " +
-                        "join ingredient_price_history iph on i.id_ingredient = iph.id_ingredient where 1=1"
+                        "join ingredient_price_history iph on i.id_ingredient = iph.id_ingredient where 1=1 "
         );
 
         for (Criteria criteria : ingredientCriterias) {
             if ("name".equals(criteria.getColumn())) {
-                sql.append(" or i.name ilike '%").append(criteria.getValue()).append("%'");
+                sql.append(logicalConnector.toString()).append(" i.name ilike '%").append(criteria.getValue()).append("%' ");
             } else if ("price".equals(criteria.getColumn())) {
                 List<Double> priceRange = (List<Double>) criteria.getValue();
                 if (priceRange.size() == 2) {
                     double minPrice = priceRange.get(0);
                     double maxPrice = priceRange.get(1);
-                    sql.append(" or iph.price between ").append(minPrice).append(" and ").append(maxPrice);
+                    sql.append(logicalConnector.toString()).append(" i.price between ").append(minPrice).append(" and ").append(maxPrice);
                 }
             } else if ("history_date".equals(criteria.getColumn())) {
                 List<LocalDateTime> dates = (List<LocalDateTime>) criteria.getValue();
                 if (dates.size() == 2) {
                     LocalDateTime startDate = dates.get(0);
                     LocalDateTime endDate = dates.get(1);
-                    sql.append(" or iph.history_date between '").append(startDate).append("' and '").append(endDate).append("'");
+                    sql.append(" ").append(logicalConnector.toString()).append(" iph.history_date between '")
+                            .append(startDate).append("' and '").append(endDate).append("' ");
                 }
+
             } else if ("unit".equals(criteria.getColumn())) {
-                sql.append(" or unit = '").append(criteria.getValue()).append("'");
+                sql.append(logicalConnector.toString()).append(" unit = '").append(criteria.getValue()).append("'");
             }
         }
 
 
         if(filterBy.toString().equalsIgnoreCase("name")|| filterBy.toString().equalsIgnoreCase("unit")) {
-            sql.append(" order by i.").append(filterBy.toString().toLowerCase()).append(" ").append(order.toString().toLowerCase());
+            sql.append(" order by i.").append(filterBy.toString().toLowerCase())
+                    .append(" ").append(order.toString().toLowerCase());
         } else if (filterBy.toString().equalsIgnoreCase("price")||filterBy.toString().equalsIgnoreCase("history_date")) {
-            sql.append(" order by iph.").append(filterBy.toString().toLowerCase()).append(" ").append(order.toString().toLowerCase());
+            sql.append(" order by iph.").append(filterBy.toString().toLowerCase())
+                    .append(" ").append(order.toString().toLowerCase());
         }
         sql.append(" limit ").append(size).append(" offset ").append((page - 1) * size);
 

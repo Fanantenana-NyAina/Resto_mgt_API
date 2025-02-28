@@ -1,10 +1,7 @@
 package dao;
 
 import db.DataSource;
-import entity.Criteria;
-import entity.FilterBy;
-import entity.IngredientPriceHistory;
-import entity.Order;
+import entity.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,7 +34,7 @@ public class IngredientPriceHistoryDAO implements DAO<IngredientPriceHistory> {
     }
 
     @Override
-    public List<IngredientPriceHistory> findAndOrderAndPaginate(List<Criteria> criteria, FilterBy filterBy, Order order, int page, int size) {
+    public List<IngredientPriceHistory> findAndOrderAndPaginate(List<Criteria> criteria, LogicalConnector logicalConnector, FilterBy filterBy, Order order, int page, int size) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

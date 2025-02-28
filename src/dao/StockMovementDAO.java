@@ -109,7 +109,7 @@ public class StockMovementDAO implements DAO<StockMovement>{
     }
 
     @Override
-    public List<StockMovement> findAndOrderAndPaginate(List<Criteria> criteria, FilterBy filterBy, Order order, int page, int size) {
+    public List<StockMovement> findAndOrderAndPaginate(List<Criteria> criteria, LogicalConnector logicalConnector, FilterBy filterBy, Order order, int page, int size) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
