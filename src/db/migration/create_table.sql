@@ -70,3 +70,31 @@ create table if not exists stock_movement
     movement_datetime timestamp not null default current_timestamp,
     constraint fk_ingredient foreign key (id_ingredient) references ingredient(id_ingredient)
 );
+
+
+    --- Ordering management:
+do
+$$
+    begin
+        if not exists(select from pg_type where typname = 'order_status') then
+        create type "order_status" as enum ('CREATED','CONFIRMED', 'IN_PREPARATION', 'COMPLETED', 'SERVED');
+    end if;
+end
+$$;
+
+create table if not exists "order"
+(
+    id_order int primary key,
+    order_status order_status not null default 'CREATED',
+    order_datetime timestamp not null default current_timestamp
+);
+
+create table if not exists dish_in_order
+(
+    id_dish int,
+    id_order int,
+    quantity numeric not null,
+    primary key (id_dish, id_order),
+    constraint fk_id_dish foreign key (id_dish) references dish(id_dish),
+    constraint fk_id_order foreign key (id_order) references "order"(id_order)
+);

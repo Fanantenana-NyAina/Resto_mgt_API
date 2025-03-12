@@ -161,7 +161,8 @@ public class StockMovementDAO implements DAO<StockMovement>{
 
     @Override
     public List<StockMovement> getAllByIdBeforeDate(int StockMovementId, LocalDateTime dateTime) {
-        String sql = "select s.id_movement, i.id_ingredient, i.name,  s.quantity, i.unit, s.movement, s.movement_datetime from stock_movement s " +
+        String sql = "select s.id_movement, i.id_ingredient, i.name,  s.quantity, i.uni" +
+                "t, s.movement, s.movement_datetime from stock_movement s " +
                 "join ingredient i on i.id_ingredient = s.id_ingredient where s.id_ingredient = ?" +
                 " and s.movement_datetime <= ? order by s.movement_datetime asc";
 

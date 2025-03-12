@@ -92,3 +92,21 @@ values
     (10, 6, 'IN', 10, 'G', current_timestamp),
     (11, 5, 'OUT', 5, 'G', current_timestamp),
     (12, 6, 'OUT', 5, 'G', current_timestamp);
+
+    ----- orders:
+insert into "order" (id_order, order_status, order_datetime)
+values
+    (1, 'CREATED', current_timestamp),
+    (2, 'CONFIRMED', current_timestamp),
+    (3, 'IN_PREPARATION', current_timestamp),
+    (4, 'COMPLETED', current_timestamp),
+    (5, 'SERVED', current_timestamp);
+
+insert into dish_in_order (id_dish, id_order, quantity)
+values
+    (1, 1, 2),
+    (1, 2, 1),
+    (1, 3, 3),
+    (1, 4, 4),
+    (1, 5, 1);
+
