@@ -108,7 +108,7 @@ public class DishDAO implements DAO<Dish> {
     }
 
     @Override
-    public List<Dish> findAndOrderAndPaginate(List<Criteria> criteria, LogicalConnector logicalConnector, FilterBy filterBy, Order order, int page, int size) {
+    public List<Dish> findAndOrderAndPaginate(List<Criteria> criteria, LogicalConnector logicalConnector, FilterBy filterBy, Ordering order, int page, int size) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

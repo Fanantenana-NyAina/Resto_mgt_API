@@ -70,7 +70,7 @@ public class TestIngredient {
         )));
 
         FilterBy filterBy = FilterBy.PRICE;
-        Order order = Order.ASC;
+        Ordering order = Ordering.ASC;
         int page = 1;
         int size = 10;
         LogicalConnector andConnector = LogicalConnector.and;

@@ -34,7 +34,7 @@ public class IngredientPriceHistoryDAO implements DAO<IngredientPriceHistory> {
     }
 
     @Override
-    public List<IngredientPriceHistory> findAndOrderAndPaginate(List<Criteria> criteria, LogicalConnector logicalConnector, FilterBy filterBy, Order order, int page, int size) {
+    public List<IngredientPriceHistory> findAndOrderAndPaginate(List<Criteria> criteria, LogicalConnector logicalConnector, FilterBy filterBy, Ordering order, int page, int size) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

@@ -148,7 +148,7 @@ public class IngredientDAO implements DAO<Ingredient> {
     }
 
     @Override
-    public List<Ingredient> findAndOrderAndPaginate(List<Criteria> ingredientCriterias, LogicalConnector logicalConnector, FilterBy filterBy, Order order, int page, int size) {
+    public List<Ingredient> findAndOrderAndPaginate(List<Criteria> ingredientCriterias, LogicalConnector logicalConnector, FilterBy filterBy, Ordering order, int page, int size) {
         //StringBuilder sql = new StringBuilder("select i.id_ingredient, i.name, i.unit_price, i.unit, i.update_datetime from ingredient i where 1=1");
         StringBuilder sql = new StringBuilder(
                 "select i.id_ingredient, i.name, i.unit, iph.price, iph.history_date from ingredient i " +

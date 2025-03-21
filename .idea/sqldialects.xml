@@ -2,8 +2,10 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/src/dao/DishDAO.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/dao/DishOrderDAO.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/dao/IngredientDAO.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/dao/IngredientPriceHistoryDAO.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/dao/OrderDAO.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/dao/StockMovementDAO.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/db/testData/insert.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/db/testData/request.sql" dialect="GenericSQL" />

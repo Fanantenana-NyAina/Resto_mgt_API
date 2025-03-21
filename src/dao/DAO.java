@@ -3,7 +3,7 @@ package dao;
 import entity.Criteria;
 import entity.FilterBy;
 import entity.LogicalConnector;
-import entity.Order;
+import entity.Ordering;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,7 +17,7 @@ public interface DAO<E> {
 
     List<E> findByCriteria(List<Criteria> criteria);
 
-    List<E> findAndOrderAndPaginate(List<Criteria> criteria, LogicalConnector logicalConnector, FilterBy filterBy, Order order, int page, int size);
+    List<E> findAndOrderAndPaginate(List<Criteria> criteria, LogicalConnector logicalConnector, FilterBy filterBy, Ordering order, int page, int size);
 
     double getPrice(int id);
 

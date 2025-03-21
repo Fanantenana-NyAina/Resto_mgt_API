@@ -94,19 +94,31 @@ values
     (12, 6, 'OUT', 5, 'G', current_timestamp);
 
     ----- orders:
-insert into "order" (id_order, order_status, order_datetime)
+insert into "order" (id_order_as_reference)
 values
-    (1, 'CREATED', current_timestamp),
-    (2, 'CONFIRMED', current_timestamp),
-    (3, 'IN_PREPARATION', current_timestamp),
-    (4, 'COMPLETED', current_timestamp),
-    (5, 'SERVED', current_timestamp);
+    (1);
 
-insert into dish_in_order (id_dish, id_order, quantity)
+insert into order_status_history (id_order_status_history, id_order_as_reference, order_status, status_datetime)
 values
-    (1, 1, 2),
-    (1, 2, 1),
-    (1, 3, 3),
-    (1, 4, 4),
-    (1, 5, 1);
+    (1, 1, 'CREATED', current_timestamp),
+    (2, 1, 'CONFIRMED', current_timestamp),
+    (3, 1, 'IN_PREPARATION', current_timestamp),
+    (4, 1, 'COMPLETED', current_timestamp),
+    (5, 1, 'SERVED', current_timestamp);
+
+insert into dish_in_order (id_dish_in_order, id_dish, id_order_as_reference, quantity)
+values
+    (1, 1, 1,2),
+    (2, 1, 1,1),
+    (3, 1, 1,3),
+    (4, 1, 1,4),
+    (5, 1, 1,1);
+
+insert into dish_order_status (id_dish_order_status, dish_order_status, status_datetime, id_dish_in_order)
+values
+    (1, 'CREATED', current_timestamp, 1),
+    (2, 'CONFIRMED', current_timestamp, 2),
+    (3, 'IN_PREPARATION', current_timestamp, 3),
+    (4, 'COMPLETED', current_timestamp, 4),
+    (5, 'SERVED', current_timestamp, 5);
 

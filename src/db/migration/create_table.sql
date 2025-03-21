@@ -72,6 +72,7 @@ create table if not exists stock_movement
 );
 
 
+
     --- Ordering management:
 do
 $$
@@ -84,17 +85,33 @@ $$;
 
 create table if not exists "order"
 (
-    id_order int primary key,
-    order_status order_status not null default 'CREATED',
-    order_datetime timestamp not null default current_timestamp
+    id_order_as_reference int primary key
 );
 
 create table if not exists dish_in_order
 (
+    id_dish_in_order int primary key,
     id_dish int,
-    id_order int,
+    id_order_as_reference int,
     quantity numeric not null,
-    primary key (id_dish, id_order),
     constraint fk_id_dish foreign key (id_dish) references dish(id_dish),
-    constraint fk_id_order foreign key (id_order) references "order"(id_order)
+    constraint fk_id_order_as_reference foreign key (id_order_as_reference) references "order"(id_order_as_reference)
+);
+
+create table if not exists order_status_history
+(
+    id_order_status_history int primary key,
+    id_order_as_reference int not null,
+    order_status order_status not null,
+    status_datetime timestamp not null default current_timestamp,
+    constraint fk_id_order_as_reference foreign key (id_order_as_reference) references "order"(id_order_as_reference)
+);
+
+create table if not exists dish_order_status
+(
+    id_dish_order_status int primary key,
+    dish_order_status order_status not null,
+    status_datetime timestamp not null default current_timestamp,
+    id_dish_in_order int not null,
+    constraint fk_id_dish_in_order foreign key (id_dish_in_order) references dish_in_order(id_dish_in_order)
 );
