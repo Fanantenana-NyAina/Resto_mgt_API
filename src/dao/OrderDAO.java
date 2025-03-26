@@ -115,7 +115,7 @@ public class OrderDAO implements DAO<Order> {
 
         String insertOrder = "insert into \"order\" (id_order_as_reference) " +
                 "values (?)";
-        String insertOrderStatusHistory = "insert into order_status_history (id_dish_order_status, dish_order_status, status_datetime, id_dish_in_order) " +
+        String insertOrderStatusHistory = "insert into order_status_history (id_order_status_history, id_order_as_reference, order_status, status_datetime) " +
                 "values (?, ?, ?, ?)";
 
         try (Connection con = dataSource.getConnection()) {
@@ -139,9 +139,9 @@ public class OrderDAO implements DAO<Order> {
                 entities.forEach(orderToSave -> orderToSave.getOrderStatus().forEach(statusHistory -> {
                     try {
                         psOrderStatusHistory.setInt(1, orderToSave.getOrderHistoryId());
-                        psOrderStatusHistory.setString(2, statusHistory.getOrderStatus().name());
-                        psOrderStatusHistory.setObject(3, statusHistory.getOrderDateTime());
-                        psOrderStatusHistory.setInt(4, orderToSave.getOrderIdRef());
+                        psOrderStatusHistory.setInt(2, orderToSave.getOrderIdRef());
+                        psOrderStatusHistory.setObject(3, statusHistory.getOrderStatus());
+                        psOrderStatusHistory.setObject(4, statusHistory.getOrderDateTime());
 
                         psOrderStatusHistory.addBatch();
                     } catch (SQLException e) {
