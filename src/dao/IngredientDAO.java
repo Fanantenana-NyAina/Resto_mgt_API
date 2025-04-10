@@ -193,6 +193,11 @@ public class IngredientDAO implements DAO<Ingredient> {
         return getIngredients(sql);
     }
 
+    @Override
+    public List<Ingredient> finDishIngredientByIdDish(int id) {
+        return List.of();
+    }
+
 
     @Override
     public double getPrice(int idIngredient) {

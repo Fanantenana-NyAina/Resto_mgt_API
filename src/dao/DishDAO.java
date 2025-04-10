@@ -13,6 +13,7 @@ import java.util.List;
 
 public class DishDAO implements DAO<Dish> {
     private final DataSource dataSource = new DataSource();
+    private DishIngredientDAO dishIngredientDAO = new DishIngredientDAO();
 
     @Override
     public List<Dish> getAll(int page, int size) {
@@ -69,6 +70,8 @@ public class DishDAO implements DAO<Dish> {
             throw new RuntimeException(e);
         }
 
+        dish.setDishIngredients(dishIngredientDAO.finDishIngredientByIdDish(id));
+
         return dish;
     }
 
@@ -113,6 +116,11 @@ public class DishDAO implements DAO<Dish> {
     }
 
     @Override
+    public List<Dish> finDishIngredientByIdDish(int id) {
+        return List.of();
+    }
+
+    @Override
     public double getPrice(int id) {
         throw new UnsupportedOperationException("Not supported yet");
     }
@@ -141,6 +149,7 @@ public class DishDAO implements DAO<Dish> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
         return newDish;
     }
 

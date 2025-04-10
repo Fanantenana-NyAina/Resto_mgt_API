@@ -39,6 +39,11 @@ public class IngredientPriceHistoryDAO implements DAO<IngredientPriceHistory> {
     }
 
     @Override
+    public List<IngredientPriceHistory> finDishIngredientByIdDish(int id) {
+        return List.of();
+    }
+
+    @Override
     public double getPrice(int id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

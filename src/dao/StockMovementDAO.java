@@ -114,6 +114,11 @@ public class StockMovementDAO implements DAO<StockMovement>{
     }
 
     @Override
+    public List<StockMovement> finDishIngredientByIdDish(int id) {
+        return List.of();
+    }
+
+    @Override
     public double getPrice(int id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

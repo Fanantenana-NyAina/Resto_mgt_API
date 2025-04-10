@@ -61,7 +61,6 @@ public class DishOrderDAO implements DAO<DishOrder>{
         }
     }
 
-
     @Override
     public DishOrder findById(int id) {
         DishOrder dishOrder = null;
@@ -159,6 +158,11 @@ public class DishOrderDAO implements DAO<DishOrder>{
     }
 
     @Override
+    public List<DishOrder> finDishIngredientByIdDish(int id) {
+        return List.of();
+    }
+
+    @Override
     public double getPrice(int orderIdRef) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -172,20 +176,46 @@ public class DishOrderDAO implements DAO<DishOrder>{
     public List<DishOrder> saveAll(List<DishOrder> entities) {
         List<DishOrder> newDishOrders = new ArrayList<>();
 
-        try(Connection con = dataSource.getConnection()) {
-            entities.forEach(entityToSave -> {
-                try(PreparedStatement ps = con.prepareStatement("insert into dish_in_order (id_dish_in_order, id_dish, id_order_as_reference, quantity) values (?, ?, ?, ?)")) {
-                    ps.setInt(1, entityToSave.getDishOrderId());
-                    ps.setInt(2, entityToSave.getDish().getIdDish());
-                    ps.setInt(3, entityToSave.getOrderIdRef());
-                    ps.setDouble(4, entityToSave.getQuantity());
+        String insertDishOrder = "insert into dish_in_order (id_dish_in_order, id_dish, id_order_as_reference, quantity) values (?, ?, ?, ?)";
+        String insertDishOrderStatus = "insert into dish_order_status (id_dish_order_status, dish_order_status, status_datetime, id_dish_in_order) values (?, ?, ?, ?)";
 
-                    ps.executeUpdate();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-                newDishOrders.add(findById(entityToSave.getDishOrderId()));
-            });
+        try(Connection con = dataSource.getConnection()) {
+            con.setAutoCommit(false);
+
+            try(PreparedStatement psDishOrder = con.prepareStatement(insertDishOrder);
+                PreparedStatement psDishOrderStatus = con.prepareStatement(insertDishOrderStatus)) {
+
+                entities.forEach(dishOrder -> {
+                    try {
+                        psDishOrder.setInt(1,dishOrder.getDishOrderId());
+                        psDishOrder.setInt(2, dishOrder.getDish().getIdDish());
+                        psDishOrder.setInt(3, dishOrder.getOrderIdRef());
+                        psDishOrder.setDouble(4, dishOrder.getQuantity());
+
+                        psDishOrder.addBatch();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+
+                psDishOrder.executeBatch();
+
+                entities.forEach(dishOrder -> dishOrder.getOrderHistory().forEach(orderHistory -> {
+                    try {
+                        psDishOrderStatus.setInt(1, dishOrder.getDishOrderId());
+                        psDishOrderStatus.setObject(2, orderHistory.getOrderStatus());
+                        psDishOrderStatus.setObject(3, orderHistory.getOrderStatus());
+                        psDishOrderStatus.setInt(4, dishOrder.getDishOrderId());
+
+                        psDishOrderStatus.addBatch();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }));
+
+                psDishOrderStatus.executeBatch();
+                con.commit();
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

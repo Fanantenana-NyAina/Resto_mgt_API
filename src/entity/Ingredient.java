@@ -47,6 +47,27 @@ public class Ingredient {
         return quantityInStock;
     }
 
+    public double getAvalaibleQuantityInStock() {
+        LocalDateTime dateChoice = LocalDateTime.now();
+        StockMovementDAO stockMovementDAO = new StockMovementDAO();
+        if (dateChoice == null || dateChoice.toString().isEmpty()) {
+            dateChoice = LocalDateTime.now();
+        }
+
+        double quantityInStock = 0;
+        List<StockMovement> stockMovements = stockMovementDAO.getAllByIdBeforeDate(idIngredient, dateChoice);
+
+        for (StockMovement stockMovement : stockMovements) {
+            if (stockMovement.getMovement() == Movement.IN) {
+                quantityInStock += stockMovement.getQuantity();
+            } else if (stockMovement.getMovement() == Movement.OUT) {
+                quantityInStock -= stockMovement.getQuantity();
+            }
+        }
+
+        return quantityInStock;
+    }
+
     public int getIdIngredient() {
         return idIngredient;
     }

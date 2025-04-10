@@ -19,6 +19,8 @@ public interface DAO<E> {
 
     List<E> findAndOrderAndPaginate(List<Criteria> criteria, LogicalConnector logicalConnector, FilterBy filterBy, Ordering order, int page, int size);
 
+    List<E> finDishIngredientByIdDish(int id);
+
     double getPrice(int id);
 
     double getPriceAtDate(int id, LocalDateTime dateTime);

@@ -93,4 +93,11 @@ public class TestDish {
 
         assertEquals(expectedGrossMargin, actualGrossMargin);
     }
+
+    @Test
+    public void getAvalaibleDish() {
+        int expected = 80;
+        Dish hotDog = subject.findById(1);
+        assertEquals(expected, hotDog.getAvailableDish());
+    }
 }

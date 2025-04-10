@@ -60,6 +60,13 @@ public class Dish {
         return dishUnitPrice - ingredientCost;
     }
 
+    public int getAvailableDish() {
+        return dishIngredients.stream()
+                .mapToInt(di -> (int) (di.getIngredient().getAvalaibleQuantityInStock() / di.getRequiredQuantity()))
+                .min()
+                .orElse(0);
+    }
+
     public double getGrossMarginAtDate(LocalDateTime dateChoice) {
         double dishUnitPrice = unitPrice;
         double ingredientCost = totalIngredientsCost(dateChoice);

@@ -100,6 +100,11 @@ public class OrderDAO implements DAO<Order> {
     }
 
     @Override
+    public List<Order> finDishIngredientByIdDish(int id) {
+        return List.of();
+    }
+
+    @Override
     public double getPrice(int id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
